@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Cadastrar Servidor</title>
+         <style>
+            @import "Administrador/css/estilo.css";
+        </style>
+    </h:head>
+
+    <h:body>
+        <p:growl id="growl" sticky="false" life="3000"/>        
+        <h:form id="form">
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+            <center>
+
+                <p:panel header="Cadastrar Servidor">
+
+                    <p:panelGrid columns="2" styleClass="grid">
+
+                        <h:outputText value="SIAPE do Servidor:"/>
+                        <p:inputText id="siape" value="#{servidor.siape}" size="40"/>
+
+                        <h:outputText value="Senha do Servidor: "/>
+                        <p:password id="senha" value="#{servidor.senha}" size="40"/>
+
+                        <h:outputText value="Confirmação de senha: "/>
+                        <p:password id="vsenha" value="#{controleServidor.confirmaSenha}" size="40"/>
+
+                        <h:outputText value="Nome do Servidor: "/>
+                        <p:inputText id="nome" value="#{servidor.nome}" size="40"/>
+
+                        <h:outputText value="Email do Servidor: "/>
+                        <p:inputText id="email" value="#{servidor.email}" size="40"/>
+
+                        <h:outputText value="Perfil: "/>
+                        <p:selectOneMenu value="#{servidor.perfil}" panelStyle="width:150px" filterMatchMode="startsWith">  
+                            <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                        </p:selectOneMenu>
+
+                    </p:panelGrid>
+
+                    <p:separator/> 
+
+                    <p:commandButton value="Cadastrar" action="#{controleServidor.adicionarServidorPrimeiroAcesso(servidor)}" ajax="false" update=":form"/>
+                    <p:commandButton value="Cancelar" oncomplete="location.href='/CFreq/faces/Login.xhtml'" update=":form"/>
+
+                </p:panel>
+
+            </center>
+
+        </h:form>
+
+    </h:body>
+
+</html>
+

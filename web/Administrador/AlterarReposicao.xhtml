@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Cadastrar Reposição</title>
+
+        <style type="text/css">
+
+            .ui-picklist-list {
+                height:300px !important;
+                width:350px !important;
+            }
+
+        </style>
+    </h:head>
+
+    <h:body>
+
+        <ui:include src="/Administrador/menuAdministrador.xhtml"/>
+
+        <h:form id="form">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+
+            <c:if test="${controleLogin.coordenador == true}">
+                <script>
+                    location.href = '/CFreq/faces/Coordenador/indexCoordenador.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+            <center> 
+                #{controleReposicao.inicializarPickList(controleReposicao.selected)}
+                <p:panel header="Alterar Reposição">
+
+                    <p:panelGrid columns="2" styleClass="grid">
+
+                        <h:outputText value="Data da reposição:"/>
+                        <p:inputMask mask="99/99/9999" value="#{controleReposicao.selected.dataReposicao}" size="9" converterMessage="Data inválida!">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-3:00"/>
+                        </p:inputMask>
+
+                        <h:outputText value="Quantidade de aulas: " />
+                        <p:inputText value="#{controleReposicao.selected.quantidadeAulas}" size="40"/>
+
+                        <h:outputText value="Disciplina"/>
+                        <p:selectOneMenu value="#{controleReposicao.selected.disciplina}" converter="entityConverter" filter="true" panelStyle="width:150px">  
+                            <f:selectItem itemLabel="Selecione" itemValue="#{null}" />  
+                            <f:selectItems value="#{controleDisciplina.listarDisciplinasAtivas()}" var="disciplina" itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"/>  
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Tipo: "/>                        
+                        <p:selectOneMenu value="#{reposicao.tipo}" panelStyle="width:150px">
+                            <f:selectItem itemLabel="Selecione" itemValue=""/>
+                            <f:selectItem itemLabel="Reposição" itemValue="Reposicao" />
+                            <f:selectItem itemLabel="Antecipação" itemValue="Antecipacao" />
+                        </p:selectOneMenu>
+
+                    </p:panelGrid>
+                    <br/>
+                    <p:pickList id="pickListFaltas" value="#{controleReposicao.faltas}" var="faltas" 
+                                itemLabel="#{controleReposicao.formatarData(faltas.dataFalta)} - #{faltas.turma.nome} - #{faltas.disciplina.nome} - #{faltas.servidor.nome}" 
+                                converter="entityConverter" showCheckbox="true" removeAllLabel="Remover todos" filterMatchMode="conatins"
+                                addAllLabel="Adicionar todos" showSourceFilter="true" itemValue="#{faltas}">
+                        <f:facet name="sourceCaption">Faltas disponíveis</f:facet>
+                        <f:facet name="targetCaption">Faltas selecionadas</f:facet>
+
+                        <p:column filterBy="#{controleReposicao.formatarData(faltas.dataFalta)} #{faltas.turma.nome} #{faltas.disciplina.nome} #{faltas.servidor.nome}" filterMatchMode="contains">
+                            <h:outputText value="#{controleReposicao.formatarData(faltas.dataFalta)} - #{faltas.turma.nome} - #{faltas.disciplina.nome} - #{faltas.servidor.nome}" />
+                        </p:column>
+                    </p:pickList>
+
+                    <p:separator/>
+
+                    <p:commandButton value="Salvar" action="#{controleReposicao.alterarReposicao(controleReposicao.selected)}" ajax="false" update=":form"/>
+
+                </p:panel>
+
+            </center>
+
+        </h:form>
+
+    </h:body>
+
+</html>
+

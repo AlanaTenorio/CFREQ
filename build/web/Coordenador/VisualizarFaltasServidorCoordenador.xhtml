@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Minhas Faltas</title>
+        <style type="text/css">
+
+            .vermelho{
+                color:red 
+                    !important;
+            }        
+            .verde{
+                color:green 
+                    !important;
+            }
+
+        </style>
+    </h:head>
+
+    <h:body>
+
+        <ui:include src="menuCoordenador.xhtml"/>
+
+        <h:form>
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+            <c:if test="${controleLogin.administrador == true}">
+                <script>
+                    location.href = '/CFreq/faces/index.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>          
+
+            <p:growl id="growl" showDetail="true" sticky="false" life="3000"/>
+
+            <p:growl id="menu"/>
+
+            <center>
+
+                <p:panel header="Visualizar Faltas">
+
+                    <p:dataTable id="tab" value="#{controleFalta.listarFaltasPorServidor(controleLogin.servidor)}" var="faltas"
+                                 rowKey="#{faltas.codigo}" paginator="true" style="text-align: center"
+                                 rows="10" emptyMessage="Parabéns, você não possui faltas!"
+                                 rowIndexVar="rowIndex"
+                                 rowStyleClass="#{controleFalta.somarReposicoesdaFalta(faltas) lt faltas.aulasRepor ? 'vermelho' : 'verde'}">
+
+                        <p:column headerText="Data da falta" width="16">
+                            <h:outputText value="#{faltas.dataFalta}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-3:00"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Disciplina" filterBy="#{faltas.disciplina}" width="16">
+                            <h:outputText value="#{faltas.disciplina.nome}"/>
+                        </p:column>
+
+                        <p:column headerText="Turma" filterBy="#{faltas.turma}" width="16">
+                            <h:outputText value="#{faltas.turma.nome}"/>
+                        </p:column>
+
+                        <p:column headerText="Número de aulas" filterBy="#{faltas.aulasRepor}" width="16">
+                            <h:outputText value="#{faltas.aulasRepor}"/>
+                        </p:column>
+
+                        <p:column headerText="Observação" filterBy="#{faltas.observacao}" width="16">
+                            <h:outputText value="#{faltas.observacao.observacao}"/>
+                        </p:column>
+
+                        <p:column headerText=" Nº Aulas/ Nº Compensações" width="16">
+                            <h:outputText value=" #{faltas.aulasRepor} / #{controleFalta.somarReposicoesdaFalta(faltas)}"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </p:panel>
+
+            </center>
+
+            <p:dialog id="dialReposicoes" appendToBody="true" closable="true" resizable="false" draggable="false" modal="true" widgetVar="dialogoR">
+
+                <p:dataTable id="tab7" value="#{controleFalta.reposicoes}" var="reposicoes" 
+                             rowKey="#{reposicoes.codigo}" emptyMessage="Sem reposições.">
+
+                    <p:column headerText="Data">
+                        <h:outputText value="#{reposicoes.dataReposicao}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-3:00"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Servidor">
+                        <h:outputText value="#{reposicoes.servidor.nome}"/>                            
+                    </p:column>
+
+                    <p:column headerText="Disciplina">
+                        <h:outputText value="#{reposicoes.disciplina.nome}"/>                            
+                    </p:column>
+
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{reposicoes.tipo}"/>                            
+                    </p:column>
+
+                    <p:column headerText="Aulas repostas">
+                        <h:outputText value="#{reposicoes.quantidadeAulas}"/>                          
+                    </p:column>
+
+                </p:dataTable>
+
+            </p:dialog>
+
+        </h:form>
+
+    </h:body>
+
+</html>
+
+

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Alterar Servidor</title>
+    </h:head>
+
+    <h:body>
+        
+        <ui:include src="/Administrador/menuAdministrador.xhtml"/>
+
+        <h:form id="form">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+            
+            <c:if test="${controleLogin.coordenador == true}">
+                <script>
+                    location.href = '/CFreq/faces/Coordenador/indexCoordenador.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+            <center>
+
+                <p:panel header="Atualizar dados do servidor" id="panel">
+
+                    <h:panelGrid columns="2" styleClass="grid">
+
+                        <h:outputText value="SIAPE: " />
+                        <p:inputText id="siape" value="#{controleServidor.selected.siape}" size="40" required="true" requiredMessage="SIAPE obrigatório!"/> 
+
+                        <h:outputText value="Nome: " />
+                        <p:inputText id="nome" value="#{controleServidor.selected.nome}" size="40" required="true" requiredMessage="Nome obrigatório!"/>
+
+                        <h:outputText value="Email: "/>
+                        <p:inputText id="email" value="#{controleServidor.selected.email}" size="40" required="true" requiredMessage="Email obrigatório!" />                        
+
+                        <h:outputText value="Nova senha: " />
+                        <p:password id="novaSenha" value="#{controleServidor.selected.senha}" size="40" required="true" requiredMessage="Nova senha obrigatória!"/>
+
+                        <h:outputText value="Confirme a nova senha: " />
+                        <p:password  id="novaSenhaConfirm" value="#{controleServidor.confirmaSenha}" size="40" required="true" requiredMessage="Confirme a nova senha!"/>
+
+                        <h:outputText value="Perfil: "/>
+                        <p:selectOneMenu value="#{controleServidor.selected.perfil}" panelStyle="width:150px" filterMatchMode="startsWith">  
+                            <f:selectItem itemLabel="Selecione" itemValue="" />  
+                            <f:selectItem itemLabel="Professor" itemValue="Professor"/>
+                            <f:selectItem itemLabel="Coordenador" itemValue="Coordenador"/>
+                            <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Coordenação: "/>
+                        <p:selectOneMenu value="#{controleServidor.selected.coordenacao}" converter="entityConverter" filter="true" panelStyle="width:150px" filterMatchMode="startsWith">  
+                            <f:selectItem itemLabel="Selecione" itemValue="#{null}" />  
+                            <f:selectItems value="#{controleCoordenacao.listarCoordenacoesAtivas()}" var="coordenacao" itemLabel="#{coordenacao.nome}" itemValue="#{coordenacao}"/>
+                        </p:selectOneMenu>
+
+                    </h:panelGrid>
+
+                    <p:separator/>
+
+                    <p:commandButton value="Salvar" action="#{controleServidor.alterarServidor(controleServidor.selected)}" ajax="false" update=":form"/>
+
+                </p:panel>
+
+            </center>
+
+        </h:form>
+
+    </h:body>
+
+</html>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioReposicao" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="acdfe2ce-a4f7-498a-a34b-489ad55c6455">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="dataReposicao" class="java.util.Date"/>
+	<field name="disciplina.nome" class="java.lang.String"/>
+	<field name="quantAulas" class="java.lang.Integer"/>
+	<field name="servidor.nome" class="java.lang.String"/>
+	<field name="faltas" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="301" height="79" uuid="822ee31c-83b8-49d2-911b-d70567fc8d39"/>
+				<imageExpression><![CDATA["C:\\Users\\AlanaMaria\\Desktop\\CFREQ\\src\\java\\relatorios\\IFPE1.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="16" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="802" height="16" forecolor="#006600" backcolor="#006600" uuid="a8b65a8f-8c5e-48d9-82f9-b6cd9a68882e"/>
+			</rectangle>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="367" y="20" width="115" height="20" uuid="b858af26-38c8-4774-9793-34a0478c61db"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="20" width="130" height="20" uuid="8e3c37a3-9cf5-4730-9a04-af7b51178bfc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Disciplina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="20" width="79" height="20" uuid="55f2fe51-63f6-4cee-82e8-080fc94f7250"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quant. Aulas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="158" height="20" uuid="2eb71b04-14ed-4418-8abe-da62d90a2698"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servidor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="503" y="0" width="299" height="20" uuid="a0e7d473-8c7f-4890-80d5-7aab4529fa63"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Faltas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="548" y="20" width="100" height="20" uuid="ea0eed93-574c-4d23-9874-f162372adc9e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="648" y="20" width="100" height="20" uuid="b930b27e-21f5-45aa-b841-45428f5ff0bd"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="748" y="20" width="54" height="20" uuid="3c2ee330-0505-4060-ab18-d873ee254fd5"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Obs.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="503" y="20" width="45" height="20" uuid="046f24c7-030d-466c-9d7a-8e7142705855"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quant]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="62" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="158" height="62" uuid="5bece8e0-6fe3-4171-b429-c9c054ce811b"/>
+				<textFieldExpression><![CDATA[$F{servidor.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="0" width="130" height="62" uuid="c19e17c7-bdf4-421a-9d96-7a73c2e49fee"/>
+				<textFieldExpression><![CDATA[$F{disciplina.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="288" y="0" width="79" height="62" uuid="ee20aa78-9ca8-4108-b913-132455418088"/>
+				<textFieldExpression><![CDATA[$F{quantAulas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="0" width="115" height="62" uuid="7bb09ce3-2271-4477-b80d-1d0181507730"/>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format($F{dataReposicao})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="503" y="0" width="299" height="62" uuid="f71552f4-3b39-4712-afb7-ab0a22cafd6d"/>
+				<textFieldExpression><![CDATA[$F{faltas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

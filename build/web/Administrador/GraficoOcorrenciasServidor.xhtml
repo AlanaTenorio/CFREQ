@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gráfico de ocorrências</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/Administrador/menuAdministrador.xhtml"/>
+
+        <h:form id="form">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+
+            <c:if test="${controleLogin.coordenador == true}">
+                <script>
+                    location.href = '/CFreq/faces/Coordenador/indexCoordenador.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+            <center>
+
+                <p:pieChart value="#{graficoPizzaOcorrenciasGeral.graficoServidor}" legendPosition="w" showDataLabels="true" style="width:400px;height:300px" />
+                <br/> <br/>
+                
+                <p:dataList value="#{controleObservacao.listarObservacoesAtivas()}" var="obs" type="definition">
+                    <f:facet name="header">
+                        Observações
+                    </f:facet>
+                    #{obs.codigo} -- #{obs.observacao}
+                </p:dataList>
+                
+            </center>
+
+        </h:form>
+    </h:body>
+</html>
+

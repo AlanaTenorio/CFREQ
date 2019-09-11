@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+        <title>Menu Coordenador</title>
+
+        <style>
+            @import "css/geral.css";
+        </style>
+
+    </h:head>
+
+    <h:body>
+
+        <h:form id="formMenuCoord">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+            <c:if test="${controleLogin.administrador == true}">
+                <script>
+                    location.href = '/CFreq/faces/index.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+            <p:growl id="growl" showDetail="true" sticky="false" life="3000"/>
+
+            <p:growl id="menu"/> 
+
+            <p:menubar>
+
+                <p:menuitem value="Início" icon="ui-icon-home" oncomplete="location.href='/CFreq/faces/Coordenador/indexCoordenador.xhtml'"/>
+                <p:submenu label="Servidor" icon="ui-icon-person">
+                    <p:menuitem icon="ui-icon-person" value="Meu Perfil" update="menu" oncomplete="location.href='/CFreq/faces/Coordenador/PerfilServidorCoordenador.xhtml'"/>
+                    <p:menuitem icon="ui-icon-notice" value="Minhas Faltas" update="menu" oncomplete="location.href='/CFreq/faces/Coordenador/VisualizarFaltasServidorCoordenador.xhtml'"/>  
+                    <p:menuitem icon="ui-icon-check" value="Minhas Reposições" update="menu" oncomplete="location.href='/CFreq/faces/Coordenador/VisualizarReposicoesServidorCoordenador.xhtml'"/>  
+                </p:submenu>
+
+                <p:submenu label="Coordenação" icon="ui-icon-suitcase">
+                    <p:menuitem icon="ui-icon-suitcase" value="Perfil Coordenação" style="font-size: 90%" update="menu" oncomplete="location.href='/CFreq/faces/Coordenador/PerfilCoordenacao.xhtml'"/>
+                    <p:menuitem icon="ui-icon-notice" value="Faltas Coordenação" style="font-size: 90%" update="menu" oncomplete="location.href='/CFreq/faces/Coordenador/VisualizarFaltasCoordenacao.xhtml'"/>  
+                    <p:menuitem icon="ui-icon-check" value="Reposições Coordenação" style="font-size: 90%" update="menu" oncomplete="location.href='/CFreq/faces/Coordenador/VisualizarReposicoesCoordenacao.xhtml'"/>  
+                </p:submenu>
+
+                <p:submenu label="Relatorio" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-document" value="Por Mês" update="menu" oncomplete="location.href='/CFreq/faces/Coordenador/GerarRelatorioCoordenadorMes.xhtml'"/>
+                    <p:menuitem icon="ui-icon-document" value="Por Data" update="menu" oncomplete="location.href='/CFreq/faces/Coordenador/GerarRelatorioCoordenadorData.xhtml'"/>
+                </p:submenu>
+                <p:menuitem icon="ui-icon-script" value="Sobre" oncomplete="location.href='/CFreq/faces/Coordenador/Informacoes.xhtml'"/>
+                <p:menuitem icon="ui-icon-power" value="Sair" action="#{controleLogin.sair()}" oncomplete="location.href='/CFreq/faces/Login.xhtml'"/>
+
+            </p:menubar>
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+        </h:form>
+
+    </h:body>
+
+</html>
+

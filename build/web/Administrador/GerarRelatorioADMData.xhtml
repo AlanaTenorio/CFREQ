@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Gerar Relatório</title>
+    </h:head>
+
+    <h:body>
+        
+        <ui:include src="/Administrador/menuAdministrador.xhtml"/>
+
+        <h:form>
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = 'Login.xhtml';
+                </script> 
+            </c:if>
+
+            <c:if test="${controleLogin.coordenador == true}">
+                <script>
+                    location.href = 'Coordenador/indexCoordenador.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = 'Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+            <center>
+
+                <p:panel header="Visualizar relatório por data">
+
+                    <h:panelGrid columns="3" styleClass="grid">                       
+                        <h:outputText value="Coordenação: "/>
+                        <p:selectOneMenu value="#{coordenacao}" converter="entityConverter" filter="true" panelStyle="width:150px">
+                            <f:selectItem itemLabel="Selecione" itemValue="#{null}" />  
+                            <f:selectItems value="#{controleCoordenacao.listarCoordenacoesAtivas()}" var="coordenacao" itemLabel="#{coordenacao.nome}" itemValue="#{coordenacao}"/>  
+                        </p:selectOneMenu>
+                        <br/>
+                        <h:outputText value="Digite a data de início: " />
+                        <p:inputMask mask="99/99/9999" value="#{dataInicio}" size="9" converterMessage="Data inválida!">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-3:00"/>
+                        </p:inputMask>
+                        <br/>
+                        <h:outputText value="Digite a data de término: " />
+                        <p:inputMask mask="99/99/9999" value="#{dataTermino}" size="9" converterMessage="Data inválida!">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-3:00"/>
+                        </p:inputMask>
+
+                    </h:panelGrid>
+
+                    <p:separator/>
+                    <p:commandLink value="Gerar Relatório" action="#{gerarRelatorioCoordenacaoData.preencherRelatorio(dataInicio, dataTermino, coordenacao)}" update=":form" ajax="false"/>
+
+                </p:panel>
+
+            </center>
+
+        </h:form>
+
+    </h:body>
+
+</html>
+

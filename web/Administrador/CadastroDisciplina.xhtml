@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Cadastro de Disciplina</title>
+    </h:head>
+
+    <h:body>
+
+        <ui:include src="/Administrador/menuAdministrador.xhtml"/>
+
+        <h:form id="form">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+
+            <c:if test="${controleLogin.coordenador == true}">
+                <script>
+                    location.href = '/CFreq/faces/Coordenador/indexCoordenador.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+            <center>
+
+                <p:panel header="Cadastrar de Disciplina">
+
+                    <p:panelGrid columns="2" styleClass="grid">
+
+                        <h:outputText value="Nome: " />
+                        <p:inputText id="nome" value="#{disciplina.nome}" size="40"/>
+
+                        <h:outputText value="Carga Horária: "/>
+                        <p:inputText id="cargahoraria" value="#{disciplina.ch}" size="40"/>
+
+                        <h:outputText value="Turno: "/>
+                        <p:selectOneMenu value="#{disciplina.turno}" panelStyle="width:150px">
+                            <f:selectItem itemLabel="Selecione o turno" itemValue=""/>
+                            <f:selectItem itemLabel="Matutino" itemValue="Matutino" />
+                            <f:selectItem itemLabel="Vespertino" itemValue="Vespertino" />
+                            <f:selectItem itemLabel="Noturno" itemValue="Noturno" />
+                            <p:ajax event="change" update="checkboxTurmas" listener="#{controleDisciplina.filtrarTurmasporTurno(disciplina.turno)}"/>
+                        </p:selectOneMenu>
+                        
+                    </p:panelGrid>
+                    <br/>
+                    <center> <p:dataTable paginator="true" rows="10" id="checkboxTurmas" var="turma" value="#{controleDisciplina.turmasfiltradas}" 
+                                 selection="#{disciplina.turmas}" rowKey="#{turma.codigo}" 
+                                 style="width: 48%;margin-bottom:0" emptyMessage="Náo há turmas cadastradas.">
+                        <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
+                        <p:column headerText="Turmas" width="45%">
+                            <h:outputText value="#{turma.nome}" />
+                        </p:column>
+                        <p:column headerText="Turmas" width="45%">
+                            <h:outputText value="#{turma.curso.nome}" />
+                        </p:column>
+                        </p:dataTable> </center>
+
+                    <br/>
+                    <center> <p:dataTable paginator="true" rows="10" id="checkboxProfessores" var="professor" value="#{controleServidor.listarServidoresAtivos()}" 
+                                 selection="#{disciplina.professores}" rowKey="#{professor.codigo}" 
+                                 style="width: 48%;margin-bottom:0" emptyMessage="Náo há professores cadastrados.">
+                        <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
+                        <p:column headerText="Professores" width="45%">
+                            <h:outputText value="#{professor.nome}" />
+                        </p:column>
+                        <p:column headerText="Professores" width="33%">
+                            <h:outputText value="#{professor.siape}" />
+                        </p:column>
+                        </p:dataTable> </center><br/>
+                        
+                        <center> <p:dataTable paginator="true" rows="10" id="checkboxCoordenacoes" var="coordenacao" value="#{controleCoordenacao.listarCoordenacoesAtivas()}" 
+                                              selection="#{disciplina.coordenacoes}" rowKey="#{coordenacao.codigo}" 
+                                 style="width: 48%;margin-bottom:0" emptyMessage="Náo há coordenações cadastrados.">
+                        <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
+                        <p:column headerText="Coordenações" width="45%">
+                            <h:outputText value="#{coordenacao.nome}" />
+                        </p:column>
+                        </p:dataTable> </center>
+                        
+                    <p:separator />
+
+                    <p:commandButton value="Cadastrar" process="checkboxProfessores checkboxCoordenacoes" action="#{controleDisciplina.adicionarDisciplina(disciplina)}" ajax="false" update=":form"/>
+
+                </p:panel>
+
+            </center>
+
+        </h:form>
+
+    </h:body>
+
+</html>
+

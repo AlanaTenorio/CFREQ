@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioDisciplinas" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2902dbd7-fcd2-438a-b19e-f205ef7127ed">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="coloredField"
+               forecolor="black"
+               isBlankWhenNull="false"
+               fontSize="10"
+               isBold="false"
+               isItalic="false"
+               isUnderline="false"
+               isStrikeThrough="false">
+        <conditionalStyle>
+            <conditionExpression>
+            <![CDATA[new Boolean($F{chPendente} >= 1)]]>
+            </conditionExpression>
+            <style forecolor="red" isBold="true"/>
+        </conditionalStyle>
+        </style>
+	<field name="nome" class="java.lang.String"/>
+	<field name="servidores" class="java.lang.String"/>
+	<field name="ch" class="java.lang.Integer"/>
+	<field name="chPendente" class="java.lang.Integer"/>
+	<field name="turma" class="java.lang.String"/>
+	<field name="turno" class="java.lang.String"/>
+	<field name="coordenacao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="-20" y="-21" width="439" height="100" uuid="67e7b2e3-b2cc-4bcf-a782-bf4acb57368b"/>
+				<imageExpression><![CDATA["C:\\Users\\AlanaMaria\\Desktop\\CFREQ\\src\\java\\relatorios\\IFPE1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="461" y="15" width="269" height="43" uuid="c5df63ca-476f-492b-89fd-9f31b9e26450"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Carga horária das disciplinas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="17" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-20" y="0" width="822" height="16" forecolor="#006600" backcolor="#006600" uuid="eaa585ec-1d31-4a00-876e-db4e2d3f47b0"/>
+			</rectangle>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="122" height="20" uuid="a4456532-c6df-469b-8de9-f7884a3e1a95"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="0" width="160" height="20" uuid="7985fde8-9682-4bcf-bce7-550cefad79b4"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servidor(es)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="0" width="40" height="20" uuid="5007ee6f-0baa-4877-b3b9-ab02e0d0c400"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CH.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="555" y="0" width="102" height="20" uuid="db26a06b-3fa4-4fdf-8e79-6fdb0b3eae46"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="657" y="0" width="145" height="20" uuid="2735c24b-8791-4f9e-8c5b-3279ac6db115"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Coordenação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="0" width="151" height="20" uuid="87200c5c-e809-4df7-9c78-c61a14b46da8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma(s)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="0" width="82" height="20" uuid="c028b099-1b82-4d19-a479-b00b31299bd6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CH. Pendente]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement style="coloredField" x="0" y="0" width="122" height="36" uuid="3d245580-d027-4e86-ab19-48e5946d5e08"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="coloredField" x="122" y="0" width="160" height="36" uuid="721ec291-94ce-458e-8f38-2d6c080c039d"/>
+				<textFieldExpression><![CDATA[$F{servidores}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="coloredField" x="282" y="0" width="40" height="36" uuid="fea89d97-7344-4f74-ab7b-a1db102c9afe"/>
+				<textFieldExpression><![CDATA[$F{ch}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="coloredField" x="322" y="0" width="82" height="36" uuid="e7d36ca5-38c7-411e-8ed5-55d4dd67b0bd"/>
+				<textFieldExpression><![CDATA[$F{chPendente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="coloredField" x="404" y="0" width="151" height="36" uuid="2080f4fe-03c1-4b51-86c1-4f529e6f33b0"/>
+				<textFieldExpression><![CDATA[$F{turma}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="coloredField" x="555" y="0" width="100" height="36" uuid="5d17553e-dce1-4994-89dd-8f4704c1c99c"/>
+				<textFieldExpression><![CDATA[$F{turno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="coloredField" x="657" y="0" width="145" height="36" uuid="d0fd654e-ff80-469a-9614-728a8cebc40c"/>
+				<textFieldExpression><![CDATA[$F{coordenacao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

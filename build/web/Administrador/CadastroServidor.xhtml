@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Cadastrar Servidor</title>
+    </h:head>
+
+    <h:body>
+
+        <ui:include src="/Administrador/menuAdministrador.xhtml"/>
+
+        <h:form id="form">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+
+            <c:if test="${controleLogin.coordenador == true}">
+                <script>
+                    location.href = '/CFreq/faces/Coordenador/indexCoordenador.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+            <center>
+
+                <p:panel header="Cadastrar Servidor">
+
+                    <p:panelGrid columns="2" styleClass="grid">
+
+                        <h:outputText value="SIAPE:"/>
+                        <p:inputText id="siape" value="#{servidor.siape}" size="40"/>
+
+                        <h:outputText value="Senha: "/>
+                        <p:password id="senha" value="#{servidor.senha}" size="40"/>
+
+                        <h:outputText value="Confirmação de senha: "/>
+                        <p:password id="vsenha" value="#{controleServidor.confirmaSenha}" size="40"/>
+
+                        <h:outputText value="Nome: "/>
+                        <p:inputText id="nome" value="#{servidor.nome}" size="40"/>
+
+                        <h:outputText value="Email: "/>
+                        <p:inputText id="email" value="#{servidor.email}" size="40"/>
+
+                        <h:outputText value="Perfil: "/>
+                        <p:selectOneMenu value="#{servidor.perfil}">  
+                            <f:selectItem itemLabel="Selecione" itemValue="" />  
+                            <f:selectItem itemLabel="Professor" itemValue="Professor"/>
+                            <f:selectItem itemLabel="Coordenador" itemValue="Coordenador"/>
+                            <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Coordenação: "/>
+                        <p:selectOneMenu value="#{servidor.coordenacao}" converter="entityConverter" filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemLabel="Selecione" itemValue="#{null}" />  
+                            <f:selectItems value="#{controleCoordenacao.listarCoordenacoesAtivas()}" var="coordenacao" itemLabel="#{coordenacao.nome}" itemValue="#{coordenacao}"/>  
+                        </p:selectOneMenu>
+
+                    </p:panelGrid>
+
+                    <p:separator/> 
+
+                    <p:commandButton value="Cadastrar" action="#{controleServidor.adicionarServidor(servidor)}" ajax="false" update=":form"/>
+
+                </p:panel>
+
+            </center>
+
+        </h:form>
+
+    </h:body>
+
+</html>
+

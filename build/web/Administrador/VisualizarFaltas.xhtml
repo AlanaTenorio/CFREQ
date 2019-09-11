@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+
+        <title>Faltas Registradas</title>
+
+        <style type="text/css">
+
+            .vermelho{
+                color:red 
+                    !important;
+            }        
+            .verde{
+                color:green 
+                    !important;
+            }
+
+        </style>
+
+    </h:head>
+
+    <h:body>
+
+        <ui:include src="/Administrador/menuAdministrador.xhtml"/>
+
+        <h:form id="form">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+
+            <c:if test="${controleLogin.coordenador == true}">
+                <script>
+                    location.href = '/CFreq/faces/Coordenador/indexCoordenador.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+            <p:growl id="growl" sticky="false" life="3000"/>
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+            <center>
+
+                <p:panel header="Registro de Faltas">
+                    
+                    <p:dataTable id="tab" value="#{controleFalta.listarFaltasAtivas()}" var="faltas"
+                                 rowKey="#{faltas.codigo}" paginator="true"
+                                 rows="10" emptyMessage="Não há faltas registradas." style="text-align: center"
+                                 rowIndexVar="rowIndex"
+                                 rowStyleClass="#{controleFalta.somarReposicoesdaFalta(faltas) lt faltas.aulasRepor ? 'vermelho' : 'verde'}">
+
+                        <p:column headerText="Data da falta" id="faltas" width="33%">
+                            <h:outputText value="#{faltas.dataFalta}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-3:00"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column headerText="Servidor" filterBy="#{faltas.servidor.nome}" width="33%">
+                            <h:outputText value="#{faltas.servidor.nome}"/>
+                        </p:column>
+
+                        <p:column headerText="Disciplina" filterBy="#{faltas.disciplina.nome}" width="33%">
+                            <h:outputText value="#{faltas.disciplina.nome}"/>
+                        </p:column>
+                        
+                         <p:column headerText=" Nº Faltas/ Nº Reposições">
+                            <h:outputText value=" #{faltas.aulasRepor} / #{controleFalta.somarReposicoesdaFalta(faltas)}"/>
+                        </p:column>
+
+                        <p:column headerText="Reposições">
+                            <p:commandLink title="exibirReposicoes" value="Exibir" update=":form:dialReposicoes" oncomplete="dialogoR.show()">
+                                <f:setPropertyActionListener value="#{faltas}" target="#{controleFalta.selected}" />
+                            </p:commandLink>
+                        </p:column>
+
+                        <p:column width="10%">
+                            <p:commandButton title="mostrar" update=":form:dial" icon="ui-icon-search" oncomplete="dialogo.show()">
+                                <f:setPropertyActionListener value="#{faltas}" target="#{controleFalta.selected}" />
+                            </p:commandButton>
+
+                            <p:commandButton title="alterar" update=":form" icon="ui-icon-pencil" oncomplete="location.href='AlterarFalta.xhtml'">
+                                <f:setPropertyActionListener value="#{faltas}" target="#{controleFalta.selected}" />
+                            </p:commandButton>
+
+                            <p:commandButton title="excluir"  icon="ui-icon-trash" oncomplete="dialogo2.show()" update=":form:dial2">
+                                <f:setPropertyActionListener value="#{faltas}" target="#{controleFalta.selected}" />                                
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:separator/>
+
+                </p:panel>
+
+            </center>
+
+            <p:dialog id="dial" appendToBody="true" draggable="false" closable="true" resizable="false" modal="true" widgetVar="dialogo">
+
+                <center> 
+
+                    <p:panelGrid columns="2">
+
+                        <h:outputText value="Data: "/>
+                        <h:outputText value="#{controleFalta.selected.dataFalta}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-3:00"/>
+                        </h:outputText>
+
+                        <h:outputText value="Servidor: "/>
+                        <h:outputText value="#{controleFalta.selected.servidor.nome}"/>
+
+                        <h:outputText value="Disciplina: "/>
+                        <h:outputText value="#{controleFalta.selected.disciplina.nome}"/>
+
+                        <h:outputText value="Turma: "/>
+                        <h:outputText value="#{controleFalta.selected.turma.nome}"/>
+
+                        <h:outputText value="Aulas a repor: "/>
+                        <h:outputText value="#{controleFalta.selected.aulasRepor}"/>
+
+                        <h:outputText value="Observação: "/>
+                        <h:outputText value="#{controleFalta.selected.observacao.codigo} #{controleFalta.selected.observacao.observacao}"/>
+
+                        <h:outputText value="Anotação: "/>
+                        <h:outputText value="#{controleFalta.selected.anotacao}"/>
+
+                    </p:panelGrid>
+
+                    <p:separator/>
+
+                </center>
+
+            </p:dialog>
+
+            <p:dialog id="dial2" appendToBody="false" closable="false" resizable="false" modal="true" widgetVar="dialogo2">
+
+                <h:outputText value="Deseja realmente excluir a falta selecionada?"/> <br/>
+
+                <center>
+
+                    <p:commandButton value="Sim" actionListener="#{controleFalta.desativar(controleFalta.selected)}" update=":form:tab" oncomplete="dialogo3.show();dialogo2.hide()"/>
+                    <p:commandButton value="Não" oncomplete="dialogo2.hide();dialogo.show()"/>
+
+                </center>
+
+            </p:dialog>
+
+
+            <p:dialog id="dial3" appendToBody="true" closable="false" resizable="false" modal="true" widgetVar="dialogo3">
+
+                <h:outputText value="Falta excluida com sucesso!"/> <br/>
+
+                <center>
+
+                    <p:commandButton value="OK" oncomplete="dialogo3.hide()"/>
+
+                </center>
+
+            </p:dialog>
+
+            <p:dialog id="dialReposicoes" appendToBody="true" closable="true" resizable="false" draggable="false" modal="true" widgetVar="dialogoR">
+
+                <p:dataTable id="tab7" value="#{controleFalta.reposicoes}" var="reposicoes" 
+                             rowKey="#{reposicoes.codigo}" emptyMessage="Sem reposições." style="text-align: center">
+
+                    <p:column headerText="Data">
+                        <h:outputText value="#{reposicoes.dataReposicao}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-3:00"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Servidor">
+                        <h:outputText value="#{reposicoes.servidor.nome}"/>                            
+                    </p:column>
+
+                    <p:column headerText="Disciplina">
+                        <h:outputText value="#{reposicoes.disciplina.nome}"/>                            
+                    </p:column>
+
+                    <p:column headerText="Tipo">
+                        <h:outputText value="#{reposicoes.tipo}"/>                            
+                    </p:column>
+
+                    <p:column headerText="Aulas repostas">
+                        <h:outputText value="#{reposicoes.quantidadeAulas}"/>                          
+                    </p:column>
+
+                </p:dataTable>
+
+            </p:dialog>
+
+        </h:form>
+
+    </h:body>
+
+</html>
+

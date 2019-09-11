@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Perfil</title>   
+    </h:head>
+
+    <h:body>
+        
+        <ui:include src="menuCoordenador.xhtml"/>
+
+        <h:form>
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+            <c:if test="${controleLogin.administrador == true}">
+                <script>
+                    location.href = '/CFreq/faces/index.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>          
+
+            <p:growl id="growl" showDetail="true" sticky="false" life="3000"/>
+
+            <p:growl id="menu"/>
+
+            <center>
+
+                <p:panel>
+
+                    <p:panelGrid columns="2">
+
+                        <h:outputText value="SIAPE: "/>
+                        <h:outputText value="#{controleLogin.servidor.siape}"/>  
+
+                        <h:outputText value="Nome: "/>
+                        <h:outputText value="#{controleLogin.servidor.nome}"/>
+
+                        <h:outputText value="Email: "/>
+                        <h:outputText value="#{controleLogin.servidor.email}"/>
+
+                        <h:outputText value="Perfil:"/>
+                        <h:outputText value="#{controleLogin.servidor.perfil}"/>
+
+                        <h:outputText value="Coordenação:"/>
+                        <h:outputText value="#{controleLogin.servidor.coordenacao.nome}"/>
+                        
+                        <h:outputText value="Faltas: "/>
+                        <p:commandLink value="Ir para Minhas Faltas" oncomplete="location.href='VisualizarFaltasServidorCoordenador.xhtml'"/>
+
+                        <h:outputText value="Reposiçõess: "/>
+                        <p:commandLink value="Ir para Minhas Reposições" oncomplete="location.href='VisualizarReposicoesServidorCoordenador.xhtml'"/>
+
+                    </p:panelGrid>
+                    <p:separator/>
+
+                    <p:commandButton value="Alterar Perfil" icon="ui-icon-pencil" oncomplete="location.href='AlterarPerfilServidorCoordenador.xhtml'"/>
+
+
+                </p:panel>
+
+            </center>
+
+        </h:form>
+
+    </h:body>
+
+</html>
+

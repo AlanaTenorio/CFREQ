@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gerar Gráfico de ocorrências</title>
+    </h:head>
+    <h:body>
+        <ui:include src="/Administrador/menuAdministrador.xhtml"/>
+
+        <h:form id="form">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+
+            <c:if test="${controleLogin.coordenador == true}">
+                <script>
+                    location.href = '/CFreq/faces/Coordenador/indexCoordenador.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+            <center>
+
+                <p:panel header="Gerar Gráfico de ocorrências">
+                    <h:panelGrid columns="3" styleClass="grid">                       
+                        <h:outputText value="Selecione o mês de início: "/>                        
+                        <p:selectOneMenu value="#{inicio}" panelStyle="width:150px">
+                            <f:selectItem itemLabel="Selecione" itemValue=""/>
+                            <f:selectItem itemLabel="Janeiro" itemValue="01" />
+                            <f:selectItem itemLabel="Fevereiro" itemValue="02" />
+                            <f:selectItem itemLabel="Março" itemValue="03" />
+                            <f:selectItem itemLabel="Abril" itemValue="04" />
+                            <f:selectItem itemLabel="Maio" itemValue="05" />
+                            <f:selectItem itemLabel="Junho" itemValue="06" />
+                            <f:selectItem itemLabel="Julho" itemValue="07" />
+                            <f:selectItem itemLabel="Agosto" itemValue="08" />
+                            <f:selectItem itemLabel="Setembro" itemValue="09" />
+                            <f:selectItem itemLabel="Outubro" itemValue="10" />
+                            <f:selectItem itemLabel="Novembro" itemValue="11" />
+                            <f:selectItem itemLabel="Dezembro" itemValue="12" />
+                        </p:selectOneMenu>
+                        <br/>
+                        <h:outputText value="Selecione o mês de Término: "/>                        
+                        <p:selectOneMenu value="#{termino}" panelStyle="width:150px">
+                            <f:selectItem itemLabel="Selecione" itemValue=""/>
+                            <f:selectItem itemLabel="Janeiro" itemValue="01" />
+                            <f:selectItem itemLabel="Fevereiro" itemValue="02" />
+                            <f:selectItem itemLabel="Março" itemValue="03" />
+                            <f:selectItem itemLabel="Abril" itemValue="04" />
+                            <f:selectItem itemLabel="Maio" itemValue="05" />
+                            <f:selectItem itemLabel="Junho" itemValue="06" />
+                            <f:selectItem itemLabel="Julho" itemValue="07" />
+                            <f:selectItem itemLabel="Agosto" itemValue="08" />
+                            <f:selectItem itemLabel="Setembro" itemValue="09" />
+                            <f:selectItem itemLabel="Outubro" itemValue="10" />
+                            <f:selectItem itemLabel="Novembro" itemValue="11" />
+                            <f:selectItem itemLabel="Dezembro" itemValue="12" />
+                        </p:selectOneMenu>
+                        <br/>
+                        <h:outputText value="Digite o ano: " />
+                        <p:inputText id="ano" value="#{ano}" size="7" required="true" requiredMessage="Digite o ano!" />
+                    </h:panelGrid>
+
+                    <p:separator/>
+                    <p:commandLink value="Gerar Gráfico" action="#{graficoPizzaOcorrenciasGeral.criarGraficoGeral(inicio, termino, ano)}"
+                                   update=":form" ajax="false"/>
+                </p:panel>
+            </center>
+
+        </h:form>
+    </h:body>
+</html>
+

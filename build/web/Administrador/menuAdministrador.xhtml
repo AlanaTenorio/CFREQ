@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Menu Administrador</title>
+
+        <style type="text/css">
+            @import "css/estilo.css";
+        </style>
+
+    </h:head>
+    <h:body>
+
+        <h:form id="formMenuAdm">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+
+            <c:if test="${controleLogin.coordenador == true}">
+                <script>
+                    location.href = '/CFreq/faces/Coordenador/indexCoordenador.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+            <p:growl id="menu"/>
+
+            <p:menubar>
+
+                <p:menuitem value="Início" icon="ui-icon-home" update="menu" oncomplete="location.href='/CFreq/faces/index.xhtml'"/>
+
+                <p:submenu label="Servidor" icon="ui-icon-person">
+                    <p:menuitem value="Cadastro" icon="ui-icon-circle-plus" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/CadastroServidor.xhtml'"/>
+                    <p:menuitem value="Servidores" icon="ui-icon-search" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/VisualizarServidores.xhtml'"/>
+                </p:submenu>
+
+                <p:submenu label="Coordenação" icon="ui-icon-suitcase">
+                    <p:menuitem value="Cadastro" icon="ui-icon-circle-plus" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/CadastroCoordenacao.xhtml'"/>
+                    <p:menuitem value="Coordenações" icon="ui-icon-search" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/VisualizarCoordenacoes.xhtml'"/>
+                </p:submenu>
+
+                <p:submenu label="Curso" icon="ui-icon-note">
+                    <p:menuitem value="Cadastro" icon="ui-icon-circle-plus" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/CadastroCurso.xhtml'"/>
+                    <p:menuitem value="Cursos" icon="ui-icon-search" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/VisualizarCursos.xhtml'"/>
+
+                    <p:submenu label="Modalidade" icon="ui-icon-star">
+                        <p:menuitem value="Cadastro" icon="ui-icon-circle-plus" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/CadastroModalidade.xhtml'"/>
+                        <p:menuitem value="Modalidades" icon="ui-icon-search" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/VisualizarModalidades.xhtml'"/>
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu label="Disciplina" icon="ui-icon-note">
+                    <p:menuitem value="Cadastro" icon="ui-icon-circle-plus" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/CadastroDisciplina.xhtml'"/>
+                    <p:menuitem value="Disciplinas" icon="ui-icon-search" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/VisualizarDisciplinas.xhtml'"/>
+                </p:submenu>
+
+                <p:submenu label="Turma" icon="ui-icon-note">
+                    <p:menuitem value="Cadastro" icon="ui-icon-circle-plus" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/CadastroTurma.xhtml'"/>
+                    <p:menuitem value="Turmas" icon="ui-icon-search" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/VisualizarTurmas.xhtml'"/>
+                </p:submenu>
+
+                <p:submenu label="Falta" icon="ui-icon-notice">
+                    <p:menuitem value="Registrar" icon="ui-icon-circle-plus" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/CadastroFaltas.xhtml'"/>
+                    <p:menuitem value="Faltas" icon="ui-icon-search" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/VisualizarFaltas.xhtml'"/>
+
+                    <p:submenu label="Observação" icon="ui-icon-star">
+                        <p:menuitem value="Registrar" icon="ui-icon-circle-plus" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/CadastroObservacao.xhtml'"/>
+                        <p:menuitem value="Observações" icon="ui-icon-search" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/VisualizarObservacoes.xhtml'"/>
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu label="Reposição/Antecipação" style="font-size: 90%" icon="ui-icon-check">
+                    <p:menuitem value="Cadastro" icon="ui-icon-circle-plus" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/CadastroReposicao.xhtml'"/>
+                    <p:menuitem value="Consultar" icon="ui-icon-search" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/VisualizarReposicoes.xhtml'"/>
+                </p:submenu>
+
+                <p:submenu label="Relatório" icon="ui-icon-document">
+                    <p:menuitem icon="ui-icon-document" value="Disciplinas" update="menu" action="#{gerarRelatorioDisciplinas.preencherRelatorio()}" ajax="false"/>
+                    <p:submenu icon="ui-icon-notice" label="Faltas">
+                        <p:menuitem icon="ui-icon-document" value="Por Mês" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/GerarRelatorioAdm.xhtml'"/>
+                        <p:menuitem icon="ui-icon-document" value="Por Servidor" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/GerarRelatorioFaltasServidor.xhtml'"/>
+                        <p:menuitem icon="ui-icon-document" value="Por Coordenação" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/GerarRelatorioADMCoordenacao.xhtml'"/>
+                        <p:submenu icon="ui-icon-document" label="Por Data">
+                            <p:menuitem icon="ui-icon-document" value="Geral" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/GerarRelatorioDataADMGeral.xhtml'"/>
+                            <p:menuitem icon="ui-icon-document" value="Por Coordenação" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/GerarRelatorioADMData.xhtml'"/>
+                        </p:submenu>
+                    </p:submenu>
+
+                    <p:submenu label="Gráficos" icon="ui-icon-signal">
+                        <p:submenu label="Faltas por período" style="font-size: 90%" icon="ui-icon-signal">
+                            <p:menuitem icon="ui-icon-signal" value="Geral" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/GerarGraficoMesGeral.xhtml'"/>
+                            <p:menuitem icon="ui-icon-signal" value="Por Servidor" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/GerarGraficoMesServidor.xhtml'"/>
+                        </p:submenu>
+                        <p:submenu label="Ocorrências" icon="ui-icon-signal">
+                            <p:menuitem value="Geral" icon="ui-icon-signal" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/GerarGraficoOcorrenciasGeral.xhtml'"/>
+                            <p:menuitem value="Por Servidor" icon="ui-icon-signal" update="menu" oncomplete="location.href='/CFreq/faces/Administrador/GerarGraficoOcorrenciasServidor.xhtml'"/>
+                        </p:submenu>
+                    </p:submenu>
+                </p:submenu>
+
+                <p:menuitem icon="ui-icon-script" value="Sobre" oncomplete="location.href='/CFreq/faces/Informacoes.xhtml'"/>
+                <p:menuitem icon="ui-icon-power" value="Sair" action="#{controleLogin.sair()}" oncomplete="location.href='/CFreq/faces/Login.xhtml'"/>
+
+            </p:menubar>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Disciplinas Cadastradas</title>
+
+        <style type="text/css">
+
+            .vermelho{
+                color:red 
+                    !important;
+            }        
+            .verde{
+                color:green 
+                    !important;
+            }
+
+            .ui-datalist-content{  
+                border: 0px
+                    !important;
+            }
+
+        </style>
+    </h:head>
+
+    <h:body>
+
+        <ui:include src="/Administrador/menuAdministrador.xhtml"/>
+
+        <h:form id="form">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+
+            <c:if test="${controleLogin.coordenador == true}">
+                <script>
+                    location.href = '/CFreq/faces/Coordenador/indexCoordenador.xhtml';
+                </script>
+            </c:if>
+
+            <c:if test="${controleLogin.professor == true}">
+                <script>
+                    location.href = '/CFreq/faces/Professor/indexProfessor.xhtml';
+                </script>
+            </c:if>
+
+            <p:growl id="growl" sticky="false" life="3000"/>
+
+            <p:spacer width="100" height="10"></p:spacer>
+
+            <center>
+
+                <p:panel header="Visualizar Disciplinas">
+                    #{controleDisciplina.calcularCH()}
+                    <p:dataTable id="tab" value="#{controleDisciplina.listarDisciplinasAtivas()}" var="disciplinas" 
+                                 rowKey="#{disciplinas.codigo}" paginator="true"
+                                 rows="10" emptyMessage="Não há disciplinas cadastradas." rowIndexVar="rowIndex"
+                                 rowStyleClass="#{disciplinas.chCalculada lt disciplinas.ch ? 'vermelho' : 'verde'}" style="text-align: center">                        
+
+                        <p:column headerText="Nome" filterBy="#{disciplinas.nome}" filterMatchMode="contains" width="30%">
+                            <h:outputText value="#{disciplinas.nome}"/>
+                        </p:column>
+
+                        <p:column headerText="Carga Horária" filterBy="#{disciplinas.ch}" width="30%">
+                            <h:outputText value="#{disciplinas.ch} horas (Quantidade de Faltas: #{disciplinas.quantidadeFaltas})"/>
+                        </p:column>
+
+                        <p:column headerText="Turno" filterBy="#{disciplinas.turno}" filterMatchMode="contains" width="30%">
+                            <h:outputText value="#{disciplinas.turno}"/>
+                        </p:column>
+
+                        <p:column headerText="Coordenações" width="25%">
+                            <p:dataList value="#{disciplinas.coordenacoes}" var="coordenacoes" type="definition">
+                                #{coordenacoes.nome}
+                            </p:dataList>
+                        </p:column>
+
+                        <p:column headerText="Professores" width="40%">
+                            <p:dataList value="#{disciplinas.professores}" var="professores" type="definition">
+                                #{professores.nome}
+                            </p:dataList>
+                        </p:column>
+
+                        <p:column width="10%">
+                            <p:commandButton title="mostrar" update=":form:dial" icon="ui-icon-search" oncomplete="dialogo.show()">
+                                <f:setPropertyActionListener value="#{disciplinas}" target="#{controleDisciplina.selected}" />
+                            </p:commandButton>
+
+                            <p:commandButton title="alterar" update=":form" icon="ui-icon-pencil" oncomplete="location.href='AlterarDisciplina.xhtml'">
+                                <f:setPropertyActionListener value="#{disciplinas}" target="#{controleDisciplina.selected}" />
+                            </p:commandButton>
+
+                            <p:commandButton title="excluir"  icon="ui-icon-trash" oncomplete="dialogo2.show()" update=":form:dial2">
+                                <f:setPropertyActionListener value="#{disciplinas}" target="#{controleDisciplina.selected}" />                                
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:separator/>
+
+                </p:panel>
+
+            </center>
+
+            <p:dialog id="dial" appendToBody="true" draggable="false" closable="true" resizable="false" modal="true" widgetVar="dialogo">
+
+                <center> 
+
+                    <p:panelGrid columns="2">
+
+                        <h:outputText value="Nome: "/>
+                        <h:outputText value="#{controleDisciplina.selected.nome}"/>
+
+                        <h:outputText value="Turno: "/>
+                        <h:outputText value="#{controleDisciplina.selected.turno}"/>
+
+                        <h:outputText value="Carga h.: "/>
+                        <h:outputText value="#{controleDisciplina.selected.ch}"/>
+
+                        <h:outputText value="Coordenações: "/>
+                        <p:dataList value="#{controleDisciplina.selected.coordenacoes}" var="coordenacoes" type="definition">
+                            #{coordenacoes.nome}
+                        </p:dataList>
+
+                        <h:outputText value="Turmas: "/>
+                        <p:dataList value="#{controleDisciplina.selected.turmas}" var="turmas" type="definition">
+                            #{turmas.nome}
+                        </p:dataList>
+
+                        <h:outputText value="Professores: "/>
+                        <p:dataList value="#{controleDisciplina.selected.professores}" var="professores" type="definition">
+                            #{professores.nome}
+                        </p:dataList>
+
+                    </p:panelGrid>
+
+                    <p:separator/>
+
+                </center>
+
+            </p:dialog>
+
+            <p:dialog id="dial2" appendToBody="false" closable="false" resizable="false" modal="true" widgetVar="dialogo2">
+
+                <h:outputText value="Deseja realmente excluir a disciplina selecionada?"/> <br/>
+
+                <center>
+
+                    <p:commandButton value="Sim" action="#{controleDisciplina.desativar(controleDisciplina.selected)}" update=":form:tab" oncomplete="dialogo3.show();dialogo2.hide()"/>
+                    <p:commandButton value="Não" oncomplete="dialogo2.hide()"/>
+
+                </center>
+
+            </p:dialog>
+
+            <p:dialog id="dial3" appendToBody="true" closable="false" resizable="false" modal="true" widgetVar="dialogo3">
+
+                <h:outputText value="Disciplina excluída com sucesso!"/> <br/>
+                <center>
+                    <p:commandButton value="OK" oncomplete="dialogo3.hide()"/>
+                </center>
+
+            </p:dialog>
+        </h:form>
+
+    </h:body>
+
+</html>
+

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Informações do sistema</title>
+        
+        <style>
+            @import "Administrador/css/estilo.css";
+        </style>
+    </h:head>
+    <h:body>
+
+        <ui:include src="/Administrador/menuAdministrador.xhtml"/>
+
+        <h:form id="form">
+
+            <c:if test="${controleLogin.loggedIn == false}">
+                <script>
+                    location.href = '/CFreq/faces/Login.xhtml';
+                </script> 
+            </c:if>
+
+            <br/>
+            <br/>
+            <br/>
+
+            <center>
+                <p:fieldset legend="Informações do sistema" style="width: 600px">
+                    <h:panelGrid columns="2" cellpadding="5">
+
+                        Desenvolvido por Alana Tenório e Lucas dos Santos sob<br/> 
+                        orientação do Professor Leonardo Soares e Silva. Em caso de<br/>
+                        dúvidas sobre o acesso e/ou funcionamento do sistema, envie <br/>
+                        um e-mail para: ccti@garanhuns.ifpe.edu.br<br/><br/>
+
+                        Atenciosamente,<br/><br/>
+
+                        Equipe de desenvolvimento.
+
+                    </h:panelGrid>
+                </p:fieldset>
+            </center>
+
+        </h:form>
+
+
+    </h:body>
+</html>
+

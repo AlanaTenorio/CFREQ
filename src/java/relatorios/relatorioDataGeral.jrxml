@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="49cdaa88-f620-4eee-9040-9466f3dbad5f">
+	<property name="ireport.zoom" value="1.4641000000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="servidor.nome" class="java.lang.String"/>
+	<field name="dataFalta" class="java.util.Date"/>
+	<field name="turma.nome" class="java.lang.String"/>
+	<field name="observacao.codigo" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="77" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-19" y="65" width="597" height="12" forecolor="#FFFFFF" backcolor="#006600" uuid="0e643a6b-dee0-48b8-b126-1243d145d4b3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="250" y="0" width="150" height="26" forecolor="#000000" uuid="b8e472b4-b158-4901-9831-8ca005ed86f5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Leelawadee" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Faltas Gerais]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="-19" y="0" width="202" height="20" forecolor="#000000" uuid="1e63ef4a-1db7-4d90-b499-d4af566a2273"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servidor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="0" width="134" height="20" forecolor="#000000" uuid="cbd3aee7-aebc-459a-b3f2-6dd3a6a0e485"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data da Falta]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-19" y="-97" width="269" height="85" uuid="1058f08e-7187-4303-94fa-1a06235e6ad0"/>
+				<imageExpression><![CDATA["C:\\Users\\AlanaMaria\\Desktop\\CFREQ\\src\\java\\relatorios\\IFPE1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="320" y="0" width="135" height="20" forecolor="#000000" uuid="17636ef3-e4d4-4197-8a97-b245fc7079b5"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Turma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="0" width="90" height="20" forecolor="#000000" uuid="17636ef3-e4d4-4197-8a97-b245fc7079b5"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observação]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Immediate">
+			<textField>
+				<reportElement x="-19" y="0" width="202" height="18" uuid="728e7c58-0f2f-4691-926c-ca6a36fa8a3c"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+					<paragraph lineSpacing="Single" spacingAfter="-1"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{servidor.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="0" width="90" height="18" uuid="a089e24f-1b98-47ad-9366-51516698203a"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{observacao.codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="183" y="0" width="134" height="18" uuid="a089e24f-1b98-47ad-9366-51516698203a"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[DateFormat.getDateInstance().format($F{dataFalta})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="135" height="16" uuid="a089e24f-1b98-47ad-9366-51516698203a"/>
+				<textElement>
+					<font fontName="Leelawadee" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turma.nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="43" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="47" splitType="Immediate"/>
+	</pageFooter>
+	<summary>
+		<band height="41" splitType="Stretch"/>
+	</summary>
+</jasperReport>

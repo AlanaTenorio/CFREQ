@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="49cdaa88-f620-4eee-9040-9466f3dbad5f">
+	<property name="ireport.zoom" value="1.4641000000000017"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="totalFaltas" class="java.lang.Integer"/>
+	<field name="totalReposicoes" class="java.lang.Integer"/>
+	<field name="totalAntecipacoes" class="java.lang.Integer"/>
+	<field name="mes" class="java.lang.String"/>
+	<field name="faltas1011" class="java.lang.Integer"/>
+	<field name="faltas1012" class="java.lang.Integer"/>
+	<field name="faltas1013" class="java.lang.Integer"/>
+	<field name="faltas1014" class="java.lang.Integer"/>
+	<field name="faltas1015" class="java.lang.Integer"/>
+	<field name="faltas1016" class="java.lang.Integer"/>
+	<field name="faltas1017" class="java.lang.Integer"/>
+	<field name="faltas1018" class="java.lang.Integer"/>
+	<field name="faltas1019" class="java.lang.Integer"/>
+	<field name="faltas1020" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="97" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-19" y="73" width="596" height="24" forecolor="#FFFFFF" backcolor="#006600" uuid="0e643a6b-dee0-48b8-b126-1243d145d4b3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="204" y="0" width="190" height="33" forecolor="#000000" uuid="4437b6ce-91bc-475a-83e7-be98124198ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Faltas do Mês]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="405" y="0" width="145" height="33" uuid="17626af0-bf4d-4e0f-8e34-0b3cb7e009d6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="78" y="73" width="172" height="20" forecolor="#FFFFFF" uuid="435d20d8-b5bf-4822-af25-a82399795eba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="73" width="295" height="20" forecolor="#FFFFFF" uuid="bb1528b2-c284-4b71-809c-fd4c9f78d302"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Faltas com código:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="-19" y="0" width="97" height="20" forecolor="#000000" uuid="1e63ef4a-1db7-4d90-b499-d4af566a2273"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="78" y="0" width="34" height="20" forecolor="#000000" uuid="cbd3aee7-aebc-459a-b3f2-6dd3a6a0e485"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Faltas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="0" width="63" height="20" forecolor="#000000" uuid="056df9c6-3235-494c-a47d-9a6cf895ccfb"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reposições]]></text>
+			</staticText>
+			<image>
+				<reportElement x="-19" y="-117" width="269" height="73" uuid="1058f08e-7187-4303-94fa-1a06235e6ad0"/>
+				<imageExpression><![CDATA["C:\\Users\\AlanaMaria\\Desktop\\CFREQ\\src\\java\\relatorios\\IFPE1.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="175" y="0" width="75" height="20" forecolor="#000000" uuid="17636ef3-e4d4-4197-8a97-b245fc7079b5"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Antecipações]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="0" width="30" height="20" forecolor="#000000" uuid="17636ef3-e4d4-4197-8a97-b245fc7079b5"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1011]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="0" width="30" height="20" forecolor="#000000" uuid="03ea9f69-041a-488a-b895-4cc1c63549fd"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1012]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="315" y="0" width="30" height="20" forecolor="#000000" uuid="a20f2c69-2960-4ad2-b394-d528a7178a83"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1013]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="0" width="30" height="20" forecolor="#000000" uuid="5fdc3a60-be8a-4db8-a1bd-712ca94ec747"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1014]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="375" y="0" width="30" height="20" forecolor="#000000" uuid="ccf8a97f-aa7e-4c37-b50f-55a98f0f9f0c"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1015]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="0" width="30" height="20" forecolor="#000000" uuid="9d032f96-beaa-4868-83ef-1870fd3b9ea4"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1016]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="435" y="0" width="30" height="20" forecolor="#000000" uuid="b2c9a490-2632-40bb-8771-59b208a8bca0"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1017]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="465" y="0" width="30" height="20" forecolor="#000000" uuid="0e1ab815-929d-44a5-950e-e909eeebb3e9"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1018]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="495" y="0" width="30" height="20" forecolor="#000000" uuid="4b80292d-457e-42a3-9c1f-8623ce681960"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1019]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="525" y="0" width="30" height="20" forecolor="#000000" uuid="2e751794-030e-49cd-b52e-ca79185477e9"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1020]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Immediate">
+			<textField>
+				<reportElement x="-19" y="0" width="97" height="32" uuid="4d4e8e73-ca01-4bc5-8076-0f6aeb6b976e"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="78" y="0" width="34" height="34" uuid="728e7c58-0f2f-4691-926c-ca6a36fa8a3c"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+					<paragraph lineSpacing="Single" spacingAfter="-1"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalFaltas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="0" width="63" height="34" uuid="bead8bea-cc89-46df-bada-d2d727d0b20b"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalReposicoes}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement mode="Opaque" x="-20" y="32" width="597" height="2" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="0244dd07-7698-4197-94f6-a5ef6df3bebe"/>
+			</rectangle>
+			<textField>
+				<reportElement x="175" y="0" width="75" height="34" uuid="a089e24f-1b98-47ad-9366-51516698203a"/>
+				<textElement>
+					<font fontName="Leelawadee" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalAntecipacoes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="255" y="0" width="30" height="34" uuid="a089e24f-1b98-47ad-9366-51516698203a"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{faltas1011}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="285" y="0" width="30" height="34" uuid="115a3b7e-6e17-46ce-98b3-0d6181059b93"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{faltas1012}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="315" y="0" width="30" height="34" uuid="218d5e96-7a0d-4539-9dc8-0b691b9d85d0"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{faltas1013}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="0" width="30" height="34" uuid="f1fcc8c4-c3bc-45c9-85a2-1b1b76a87b54"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{faltas1014}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="375" y="0" width="30" height="34" uuid="ed2cde37-681c-46da-bffb-663d2d1883a0"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{faltas1015}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="0" width="30" height="34" uuid="4dc4ff1b-3dfd-4a2a-a146-68f1de23a2c5"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{faltas1016}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="30" height="34" uuid="e3adf9c6-c2e4-41fb-81d4-97efa74dd411"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{faltas1017}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="465" y="0" width="30" height="34" uuid="0b52dced-1f6d-4e11-a78a-8f17df1faccd"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{faltas1018}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="495" y="0" width="30" height="34" uuid="4f3d0d98-8fe9-48a6-a78a-2b372165324a"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{faltas1019}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="525" y="0" width="30" height="34" uuid="4eb7b6b9-3097-432d-a158-43cc6264f0a8"/>
+				<textElement>
+					<font fontName="Leelawadee" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{faltas1020}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="41" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="45" splitType="Immediate"/>
+	</pageFooter>
+	<summary>
+		<band height="43" splitType="Stretch"/>
+	</summary>
+</jasperReport>
